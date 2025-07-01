@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <form action="submit.php" method="POST">
+    <div class="g-recaptcha" data-sitekey="6Ld-53MrAAAAAJsOU8Eo7iyc9VxHO6Z2GbWmyRsZ"></div>
+    <button type="submit">送る！</button>
+</form>
+  <?php
+$secretKey = "6Ld-53MrAAAAAIfn4VTNB4DasMnY_qF1y0XoWpso";
+$response = $_POST['g-recaptcha-response'];
+$result = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response");
+$resultJson = json_decode($result);
+
+if ($resultJson->success) {
+    echo "やった！人間だ！OK！";
+} else {
+    echo "あれ？ロボットかも？ダメだよ！";
+}
+?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HARUOMILABOプライバシーポリシー</title>
